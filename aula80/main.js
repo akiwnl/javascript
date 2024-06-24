@@ -1,19 +1,18 @@
-const pessoas = [
-    {id: 3, nome:'Kaike'},
-    {id: 2, nome: 'Paulo'},
-    {id: 1, nome: 'Victor'}
-];
-
-// const novasPessoas = {};
-// for(const pessoa of pessoas) {
-//     const { id } = pessoa;
-//     novasPessoas[id] = { ...pessoa };
-// }
-
-const novasPessoas = new Map();
-for(const pessoa of pessoas) {
-    const { id } = pessoa;
-    novasPessoas.set(id,{ ...pessoa });
+class Pessoa {
+    constructor(nome, sobrenome) {
+        this.nome = nome;
+        this.sobrenome = sobrenome;
+    }
+    falar() {
+        console.log(`${this.nome} esta falando...`);
+    }
+    comer() {
+        console.log('comendo...');
+    }
+    beber(){
+        console.log('bebendo...');
+    }
 }
 
-console.log(novasPessoas);
+const pessoa1 = new Pessoa('Kaike', 'Carvalho');
+pessoa1.falar();
