@@ -1,33 +1,38 @@
-function rand(min, max) {
-    min *= 1000;
-    max *= 1000;
-    return Math.floor(Math.random() * (max - min) + min);
-}
-
-function esperaAi(msg, tempo) {
+function fetchData() {
     return new Promise((resolve, reject) => {
-        if(typeof msg !== 'string') reject('BAD VALUE');
-
         setTimeout(() => {
-            resolve(msg);
-        }, tempo);
+            resolve('text.txt');
+        }, 2000);
     });
 }
 
-esperaAi('Conexao com o BD',rand(1,3))
-    .then(res => {
-        console.log(res);
-        return esperaAi('Buscando dados na base.',rand(1,3));
-    })
-    .then(res => {
-        console.log(res);
-        return esperaAi(222222,rand(1,3)); // vai dar erro pois é esperado uma string.
-    })
-    .then(() => {
-        console.log('Exibe os dados na tela');
-    })
-    .catch(e => {
-        console.log('ERRO:', e);
+function processData(data){
+    return new Promise((resolve, reject) => {
+        if(typeof data !== 'string') reject('BAD VALUE');
+        setTimeout(() => {
+            resolve(`${data}`)
+        },2000);
     });
+}
 
-    console.log('isso sera exibido antes de qualquer promise');
+function displayData(data) {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            console.log('Exibindo dados');
+            console.log(data);
+            resolve();
+        },1000);
+    });
+}
+fetchData()
+    .then(rawData => {
+        console.log('Dados carregados.');
+        return processData(rawData);
+    })
+    .then(processedData => {
+        console.log('Dados processados.');
+        return displayData(processedData);
+    })
+    .catch(err => {
+        console.error(err);
+    })
